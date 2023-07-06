@@ -5,7 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.areeb.whatsappstatussaver.R
-import com.areeb.whatsappstatussaver.ui.MainActivity
+import com.areeb.whatsappstatussaver.ui.home.activity.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
