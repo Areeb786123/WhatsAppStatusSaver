@@ -36,13 +36,13 @@ class MainActivity : AppCompatActivity() {
     private fun viewPagerSetup() {
         viewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
         // Set the adapter to the ViewPager
-        binding.viewPager.setAdapter(viewPagerAdapter)
+        binding.viewPager.adapter = viewPagerAdapter
 
 // Connect the TabLayout with the ViewPager
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
     private fun settingUpToolBar() {
-        binding.myToolbar.title = getString(R.string.status_saver)
+        binding.toolBarTitle.text = getString(R.string.status_saver)
     }
 }
