@@ -1,11 +1,15 @@
 package com.areeb.whatsappstatussaver.ui.home.fragments
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.areeb.whatsappstatussaver.R
+import com.areeb.whatsappstatussaver.ui.base.fragments.BaseFragments
+import com.areeb.whatsappstatussaver.utils.sharedPrefernces.SharedPrefences
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
@@ -19,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 @AndroidEntryPoint
-class PhotosFragments : Fragment() {
+class PhotosFragments : BaseFragments() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,6 +43,16 @@ class PhotosFragments : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_photos_fragments, container, false)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (SharedPrefences.isFolderSelected(requireContext())) {
+            getFolderPermission()
+        } else {
+            showToast("permission granted")
+        }
     }
 
     companion object {

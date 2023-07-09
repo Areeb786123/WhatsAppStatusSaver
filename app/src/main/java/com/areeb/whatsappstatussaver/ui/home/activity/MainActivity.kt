@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // Set the adapter to the ViewPager
         binding.viewPager.adapter = viewPagerAdapter
 
-// Connect the TabLayout with the ViewPager
+        // Connect the TabLayout with the ViewPager
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
