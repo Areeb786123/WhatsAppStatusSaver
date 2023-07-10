@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.areeb.whatsappstatussaver.data.models.StatusDto
 import com.areeb.whatsappstatussaver.utils.constants.Constants
 import com.areeb.whatsappstatussaver.utils.sharedPrefernces.SharedPrefences
@@ -24,6 +26,9 @@ open class BaseFragments : Fragment() {
     }
 
     var baseStatusList: List<StatusDto>? = null
+
+    private var _baseListLiveData = MutableLiveData<List<StatusDto>>()
+    val baseListLiveData: LiveData<List<StatusDto>> get() = _baseListLiveData
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun getFolderPermission() {
@@ -40,7 +45,10 @@ open class BaseFragments : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {
             val treeUri = data?.data
-            SharedPrefences.setIsFolderSelected(requireContext(), true)
+            Log.e("tree", treeUri.toString())
+            // make it true but due to issue i have done it false
+            // the issue was regarding treeUi
+            SharedPrefences.setIsFolderSelected(requireContext(), false)
             SharedPrefences.treeUriPath(requireContext(), treeUri.toString())
             getUri(treeUri)
         }
@@ -48,6 +56,7 @@ open class BaseFragments : Fragment() {
 
     fun getUri(treeUri: Uri?) {
         if (treeUri != null) {
+            Log.e("uriIn", treeUri.toString())
             val fileDoc =
                 activity?.let {
                     it?.applicationContext?.let { it1 ->
@@ -63,6 +72,9 @@ open class BaseFragments : Fragment() {
                     val statusClass = StatusDto(file.name!!, file.uri.toString())
                     baseStatusList = listOf(statusClass)
                     Log.e("kjk", baseStatusList.toString())
+                    _baseListLiveData.value = baseStatusList
+                } else {
+                    Log.e("error", "some error occur")
                 }
             }
         }

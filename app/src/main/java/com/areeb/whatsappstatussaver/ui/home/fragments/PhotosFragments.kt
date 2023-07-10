@@ -1,8 +1,9 @@
 package com.areeb.whatsappstatussaver.ui.home.fragments
 
-import android.net.Uri
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.annotation.RequiresApi
 import com.areeb.whatsappstatussaver.data.models.StatusDto
 import com.areeb.whatsappstatussaver.databinding.FragmentPhotosFragmentsBinding
 import com.areeb.whatsappstatussaver.ui.base.fragments.BaseFragments
-import com.areeb.whatsappstatussaver.utils.sharedPrefernces.SharedPrefences
+import com.areeb.whatsappstatussaver.ui.home.adapter.ImageStatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,6 +19,7 @@ class PhotosFragments : BaseFragments() {
     private var _binding: FragmentPhotosFragmentsBinding? = null
     private val binding get() = _binding
     private var statusList: List<StatusDto>? = null
+    private lateinit var imageStatusAdapter: ImageStatusAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,11 +34,34 @@ class PhotosFragments : BaseFragments() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (!SharedPrefences.isFolderSelected(requireContext())) {
-            getFolderPermission()
-        } else {
-            getUri(Uri.parse(SharedPrefences.getTreeUriPath(requireContext())))
-            showToast("permission granted")
+        imageStatusAdapter = ImageStatusAdapter(emptyList()) // Initialize with an empty list
+        binding?.photosRecyclerView?.adapter = imageStatusAdapter
+        getStatusAccess()
+        observer()
+    }
+
+    private fun observer() {
+        baseListLiveData.observe(viewLifecycleOwner) {
+            setUpRecyclerView(it)
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun getStatusAccess() {
+//        if (!SharedPrefences.isFolderSelected(requireContext())) {
+//            getFolderPermission()
+//        } else {
+//            getUri(Uri.parse(SharedPrefences.getTreeUriPath(requireContext())))
+//            showToast("permission granted")
+//        }
+        getFolderPermission()
+        statusList = baseStatusList
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setUpRecyclerView(value: List<StatusDto>) {
+        Log.e("cj", baseStatusList.toString())
+        imageStatusAdapter.submitList(value) // Update the adapter's data
+        imageStatusAdapter.notifyDataSetChanged()
     }
 }

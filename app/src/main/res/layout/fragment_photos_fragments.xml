@@ -12,11 +12,10 @@
         android:id="@+id/photosRecyclerView"
         android:layout_width="@dimen/dimen0"
         android:layout_height="@dimen/dimen0"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:spanCount="2"
         tools:listitem="@layout/items_saver" />
 </androidx.constraintlayout.widget.ConstraintLayout>

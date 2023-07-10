@@ -16,7 +16,6 @@ object SharedPrefences {
         if (sp.contains(IS_FOLDER_SELECTED)) {
             return true
         }
-
         return false
     }
 
