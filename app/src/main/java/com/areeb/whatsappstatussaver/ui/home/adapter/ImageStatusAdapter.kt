@@ -3,9 +3,13 @@ package com.areeb.whatsappstatussaver.ui.home.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.areeb.whatsappstatussaver.data.models.StatusDto
+import com.areeb.whatsappstatussaver.ui.common.OnItemClick
 import com.areeb.whatsappstatussaver.ui.home.viewHolder.ImageStatusViewHolder
 
-class ImageStatusAdapter(private var imageStatusList: List<StatusDto>) :
+class ImageStatusAdapter(
+    private var imageStatusList: List<StatusDto>,
+    private val onItemClick: OnItemClick,
+) :
     RecyclerView.Adapter<ImageStatusViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageStatusViewHolder {
         return ImageStatusViewHolder.from(parent)
@@ -16,7 +20,7 @@ class ImageStatusAdapter(private var imageStatusList: List<StatusDto>) :
     }
 
     override fun onBindViewHolder(holder: ImageStatusViewHolder, position: Int) {
-        holder.bind(imageStatusList[position])
+        holder.bind(imageStatusList[position], onItemClick)
     }
 
     fun submitList(newList: List<StatusDto>) {

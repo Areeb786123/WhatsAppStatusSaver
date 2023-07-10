@@ -52,32 +52,6 @@ open class BaseFragments : Fragment() {
         }
     }
 
-//    fun getUri(treeUri: Uri?) {
-//        if (treeUri != null) {
-//            Log.e("uriIn", treeUri.toString())
-//            val fileDoc =
-//                activity?.let {
-//                    it?.applicationContext?.let { it1 ->
-//                        DocumentFile.fromTreeUri(
-//                            it1,
-//                            treeUri,
-//                        )
-//                    }
-//                }
-//
-//            for (file: DocumentFile in fileDoc!!.listFiles()) {
-//                if (!file.name!!.endsWith(".nomedia")) {
-//                    val statusClass = StatusDto(file.name!!, file.uri.toString())
-//                    baseStatusList = listOf(statusClass)
-//                    Log.e("kjk", baseStatusList.toString())
-//                    _baseListLiveData.value = baseStatusList
-//                } else {
-//                    Log.e("error", "some error occur")
-//                }
-//            }
-//        }
-//    }
-
     fun getUri(treeUri: Uri?) {
         if (treeUri != null) {
             Log.e("uriIn", treeUri.toString())

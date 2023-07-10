@@ -14,5 +14,12 @@ interface Constants {
                 const val TREE_URI_PATH = "treeUriPath"
             }
         }
+
+        interface SHARING {
+            companion object {
+                const val IMAGE_URI = "image_uri"
+                const val FRAGMENT_IMAGE_URI = "fragment_image_uri"
+            }
+        }
     }
 }

@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.areeb.whatsappstatussaver.data.models.StatusDto
 import com.areeb.whatsappstatussaver.databinding.FragmentPhotosFragmentsBinding
+import com.areeb.whatsappstatussaver.ui.DetailScreen.activity.DetailActivity
 import com.areeb.whatsappstatussaver.ui.base.fragments.BaseFragments
+import com.areeb.whatsappstatussaver.ui.common.OnItemClick
 import com.areeb.whatsappstatussaver.ui.home.adapter.ImageStatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -33,7 +35,8 @@ class PhotosFragments : BaseFragments() {
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imageStatusAdapter = ImageStatusAdapter(emptyList()) // Initialize with an empty list
+        imageStatusAdapter =
+            ImageStatusAdapter(emptyList(), onItemClick) // Initialize with an empty list
         binding?.photosRecyclerView?.adapter = imageStatusAdapter
         getStatusAccess()
         observer()
@@ -60,5 +63,11 @@ class PhotosFragments : BaseFragments() {
     private fun setUpRecyclerView(value: List<StatusDto>) {
         imageStatusAdapter.submitList(value)
         imageStatusAdapter.notifyDataSetChanged()
+    }
+
+    private val onItemClick = object : OnItemClick {
+        override fun onItemClick(statusDto: StatusDto) {
+            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri)
+        }
     }
 }
