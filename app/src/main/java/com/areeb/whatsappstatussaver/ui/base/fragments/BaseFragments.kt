@@ -6,9 +6,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.storage.StorageManager
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
+import com.areeb.whatsappstatussaver.data.models.StatusDto
 import com.areeb.whatsappstatussaver.utils.constants.Constants
 import com.areeb.whatsappstatussaver.utils.sharedPrefernces.SharedPrefences
 
@@ -19,6 +22,8 @@ open class BaseFragments : Fragment() {
         private const val ADVANCE_KEY = "android.content.SHOW_ADVANCED"
         private const val REQUEST_CODE = 1234
     }
+
+    var baseStatusList: List<StatusDto>? = null
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun getFolderPermission() {
@@ -36,6 +41,30 @@ open class BaseFragments : Fragment() {
         if (resultCode == RESULT_OK) {
             val treeUri = data?.data
             SharedPrefences.setIsFolderSelected(requireContext(), true)
+            SharedPrefences.treeUriPath(requireContext(), treeUri.toString())
+            getUri(treeUri)
+        }
+    }
+
+    fun getUri(treeUri: Uri?) {
+        if (treeUri != null) {
+            val fileDoc =
+                activity?.let {
+                    it?.applicationContext?.let { it1 ->
+                        DocumentFile.fromTreeUri(
+                            it1,
+                            treeUri,
+                        )
+                    }
+                }
+
+            for (file: DocumentFile in fileDoc!!.listFiles()) {
+                if (!file.name!!.endsWith(".nomedia")) {
+                    val statusClass = StatusDto(file.name!!, file.uri.toString())
+                    baseStatusList = listOf(statusClass)
+                    Log.e("kjk", baseStatusList.toString())
+                }
+            }
         }
     }
 

@@ -11,6 +11,7 @@ interface Constants {
             companion object {
                 const val IS_FOLDER_SELECTED = "isFolderSelected"
                 const val SHARED_PEREFENCES = "sharedPreferences"
+                const val TREE_URI_PATH = "treeUriPath"
             }
         }
     }
