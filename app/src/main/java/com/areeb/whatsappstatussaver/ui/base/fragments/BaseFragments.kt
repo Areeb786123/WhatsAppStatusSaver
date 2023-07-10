@@ -25,8 +25,6 @@ open class BaseFragments : Fragment() {
         private const val REQUEST_CODE = 1234
     }
 
-    var baseStatusList: List<StatusDto>? = null
-
     private var _baseListLiveData = MutableLiveData<List<StatusDto>>()
     val baseListLiveData: LiveData<List<StatusDto>> get() = _baseListLiveData
 
@@ -54,29 +52,57 @@ open class BaseFragments : Fragment() {
         }
     }
 
+//    fun getUri(treeUri: Uri?) {
+//        if (treeUri != null) {
+//            Log.e("uriIn", treeUri.toString())
+//            val fileDoc =
+//                activity?.let {
+//                    it?.applicationContext?.let { it1 ->
+//                        DocumentFile.fromTreeUri(
+//                            it1,
+//                            treeUri,
+//                        )
+//                    }
+//                }
+//
+//            for (file: DocumentFile in fileDoc!!.listFiles()) {
+//                if (!file.name!!.endsWith(".nomedia")) {
+//                    val statusClass = StatusDto(file.name!!, file.uri.toString())
+//                    baseStatusList = listOf(statusClass)
+//                    Log.e("kjk", baseStatusList.toString())
+//                    _baseListLiveData.value = baseStatusList
+//                } else {
+//                    Log.e("error", "some error occur")
+//                }
+//            }
+//        }
+//    }
+
     fun getUri(treeUri: Uri?) {
         if (treeUri != null) {
             Log.e("uriIn", treeUri.toString())
-            val fileDoc =
-                activity?.let {
-                    it?.applicationContext?.let { it1 ->
-                        DocumentFile.fromTreeUri(
-                            it1,
-                            treeUri,
-                        )
-                    }
+            val fileDoc = activity?.let {
+                it.applicationContext?.let { it1 ->
+                    DocumentFile.fromTreeUri(
+                        it1,
+                        treeUri,
+                    )
                 }
+            }
+
+            val baseStatusList = mutableListOf<StatusDto>() // Create an empty list
 
             for (file: DocumentFile in fileDoc!!.listFiles()) {
                 if (!file.name!!.endsWith(".nomedia")) {
                     val statusClass = StatusDto(file.name!!, file.uri.toString())
-                    baseStatusList = listOf(statusClass)
-                    Log.e("kjk", baseStatusList.toString())
-                    _baseListLiveData.value = baseStatusList
+                    baseStatusList.add(statusClass) // Add the StatusDto object to the list
                 } else {
-                    Log.e("error", "some error occur")
+                    Log.e("error", "some error occurred")
                 }
             }
+
+            _baseListLiveData.value =
+                baseStatusList // Set the value of _baseListLiveData to the final list
         }
     }
 

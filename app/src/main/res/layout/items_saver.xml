@@ -13,7 +13,7 @@
         android:id="@+id/itemStatus"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         tools:src="@drawable/ic_whatsapp" />
 
 </com.google.android.material.card.MaterialCardView>

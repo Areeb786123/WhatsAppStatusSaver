@@ -3,7 +3,6 @@ package com.areeb.whatsappstatussaver.ui.home.fragments
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,8 +40,8 @@ class PhotosFragments : BaseFragments() {
     }
 
     private fun observer() {
-        baseListLiveData.observe(viewLifecycleOwner) {
-            setUpRecyclerView(it)
+        baseListLiveData.observe(viewLifecycleOwner) { image ->
+            setUpRecyclerView(image.filter { it.fileUri.endsWith("jpg") })
         }
     }
 
@@ -55,13 +54,11 @@ class PhotosFragments : BaseFragments() {
 //            showToast("permission granted")
 //        }
         getFolderPermission()
-        statusList = baseStatusList
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpRecyclerView(value: List<StatusDto>) {
-        Log.e("cj", baseStatusList.toString())
-        imageStatusAdapter.submitList(value) // Update the adapter's data
+        imageStatusAdapter.submitList(value)
         imageStatusAdapter.notifyDataSetChanged()
     }
 }
