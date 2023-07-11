@@ -82,6 +82,7 @@
     <dimen name="text26">26sp</dimen>
     <dimen name="dimen44">44dp</dimen>
     <dimen name="dimen110">110dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>
