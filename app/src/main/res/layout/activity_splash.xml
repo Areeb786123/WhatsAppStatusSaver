@@ -3,8 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#3F51B5"
     android:layout_height="match_parent"
+    android:background="@color/app_background_color"
     tools:context=".ui.splash.SplashActivity">
 
+    <ImageView
+        android:layout_width="@dimen/dimen100"
+        android:layout_height="@dimen/dimen100"
+        android:src="@drawable/ic_whatsapp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen20"
+        android:text="@string/crafted_with_love_by_areeb"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text16"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

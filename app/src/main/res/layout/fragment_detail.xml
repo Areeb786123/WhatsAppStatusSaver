@@ -11,11 +11,22 @@
     <ImageView
         android:id="@+id/detailImage"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnDownloadImageStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/green"
+        android:layout_marginEnd="@dimen/dimen20"
+        android:layout_marginBottom="@dimen/dimen20"
+        android:src="@drawable/baseline_downloading_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
