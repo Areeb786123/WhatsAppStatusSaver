@@ -12,6 +12,7 @@ interface Constants {
                 const val IS_FOLDER_SELECTED = "isFolderSelected"
                 const val SHARED_PEREFENCES = "sharedPreferences"
                 const val TREE_URI_PATH = "treeUriPath"
+                const val STORAGE_PERMISSION = "storage_permission"
             }
         }
 

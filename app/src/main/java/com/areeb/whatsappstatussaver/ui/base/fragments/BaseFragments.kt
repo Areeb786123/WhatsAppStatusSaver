@@ -1,14 +1,18 @@
 package com.areeb.whatsappstatussaver.ui.base.fragments
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.storage.StorageManager
 import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.documentfile.provider.DocumentFile
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -23,6 +27,7 @@ open class BaseFragments : Fragment() {
         private const val INITIAL_KEY = "android.provider.extra.INITIAL_URI"
         private const val ADVANCE_KEY = "android.content.SHOW_ADVANCED"
         private const val REQUEST_CODE = 1234
+        const val PERMISSION_REQUEST_CODE = 123
     }
 
     private var _baseListLiveData = MutableLiveData<List<StatusDto>>()
@@ -82,5 +87,24 @@ open class BaseFragments : Fragment() {
 
     fun showToast(message: String) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun checkRequestPermission(): Boolean {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return false
+        }
+        return true
+    }
+
+    fun requestExternalPermission() {
+        ActivityCompat.requestPermissions(
+            requireActivity(),
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            PERMISSION_REQUEST_CODE,
+        )
     }
 }
