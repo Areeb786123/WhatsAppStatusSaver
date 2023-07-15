@@ -1,31 +1,26 @@
 package com.areeb.whatsappstatussaver.ui.DetailScreen.fragments
 
-import android.content.ContentResolver
-import android.content.ContentValues
-import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.areeb.whatsappstatussaver.databinding.FragmentDetailBinding
+import com.areeb.whatsappstatussaver.ui.DetailScreen.viewModels.DetailViewModels
 import com.areeb.whatsappstatussaver.ui.base.fragments.BaseFragments
 import com.areeb.whatsappstatussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARING.Companion.FRAGMENT_IMAGE_URI
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 @AndroidEntryPoint
 class DetailFragment : BaseFragments(), View.OnClickListener {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+    private val viewModels: DetailViewModels by viewModels()
 
     private var imageUrl: String? = null
     override fun onCreateView(
@@ -57,7 +52,7 @@ class DetailFragment : BaseFragments(), View.OnClickListener {
         when (view?.id) {
             binding.btnDownloadImageStatus.id -> {
                 // Request external storage permission if not granted
-                lifecycleScope.launch{
+                lifecycleScope.launch {
                     downloadImage()
                 }
             }
@@ -69,50 +64,7 @@ class DetailFragment : BaseFragments(), View.OnClickListener {
         val bitmap = drawable?.bitmap
 
         if (bitmap != null) {
-            saveImage(bitmap)
-        }
-    }
-
-    private suspend fun saveImage(bitmap: Bitmap) {
-        val contentResolver: ContentResolver = requireActivity().applicationContext.contentResolver
-        val contentValues = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, "image.jpg")
-            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
-        }
-
-        var imageUri: String? = null
-
-        try {
-            val imageCollection = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
-            } else {
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            }
-
-            val imageUri = contentResolver.insert(imageCollection, contentValues)
-            if (imageUri != null) {
-                contentResolver.openOutputStream(imageUri)?.use { outputStream ->
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-                }
-
-                Toast.makeText(
-                    requireContext(),
-                    "Image saved successfully.",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    "Failed to save the image.",
-                    Toast.LENGTH_SHORT,
-                ).show()
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        } finally {
-            imageUri?.let { uri ->
-                contentResolver.delete(Uri.parse(uri), null, null)
-            }
+            viewModels.saveImage(bitmap, requireActivity())
         }
     }
 }
