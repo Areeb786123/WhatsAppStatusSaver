@@ -2,7 +2,9 @@ package com.areeb.whatsappstatussaver.ui.home.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.areeb.whatsappstatussaver.R
 import com.areeb.whatsappstatussaver.databinding.ActivityMainBinding
@@ -45,4 +47,6 @@ class MainActivity : AppCompatActivity() {
     private fun settingUpToolBar() {
         binding.toolBarTitle.text = getString(R.string.status_saver)
     }
+
+
 }

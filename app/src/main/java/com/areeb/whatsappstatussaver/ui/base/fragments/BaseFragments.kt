@@ -44,6 +44,11 @@ open class BaseFragments : Fragment() {
         startActivityForResult(intent, REQUEST_CODE)
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
+    fun getStatusAccess() {
+        getFolderPermission()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK) {

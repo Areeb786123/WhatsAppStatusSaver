@@ -9,11 +9,33 @@
     android:background="@drawable/card_background"
     app:cardBackgroundColor="@color/app_item_color">
 
-    <ImageView
-        android:id="@+id/itemStatus"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:src="@drawable/ic_whatsapp" />
+        android:layout_height="match_parent">
 
+
+        <ImageView
+            android:id="@+id/itemStatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/ic_whatsapp" />
+
+
+        <ImageView
+            android:id="@+id/videoIcon"
+            android:layout_width="@dimen/dimen20"
+            android:layout_height="@dimen/dimen20"
+            android:src="@drawable/baseline_ondemand_video_24"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
+
+

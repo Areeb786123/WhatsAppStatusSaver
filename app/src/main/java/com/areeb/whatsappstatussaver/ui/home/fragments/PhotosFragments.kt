@@ -48,17 +48,6 @@ class PhotosFragments : BaseFragments() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun getStatusAccess() {
-//        if (!SharedPrefences.isFolderSelected(requireContext())) {
-//            getFolderPermission()
-//        } else {
-//            getUri(Uri.parse(SharedPrefences.getTreeUriPath(requireContext())))
-//            showToast("permission granted")
-//        }
-        getFolderPermission()
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpRecyclerView(value: List<StatusDto>) {
         imageStatusAdapter.submitList(value)
