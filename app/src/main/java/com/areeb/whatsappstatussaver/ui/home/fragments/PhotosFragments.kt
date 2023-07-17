@@ -56,7 +56,7 @@ class PhotosFragments : BaseFragments() {
 
     private val onItemClick = object : OnItemClick {
         override fun onItemClick(statusDto: StatusDto) {
-            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri)
+            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri, 1)
         }
     }
 }

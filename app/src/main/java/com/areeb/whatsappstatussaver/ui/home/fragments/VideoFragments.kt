@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import com.areeb.whatsappstatussaver.data.models.StatusDto
 import com.areeb.whatsappstatussaver.databinding.FragmentVideoFragmentsBinding
+import com.areeb.whatsappstatussaver.ui.DetailScreen.activity.DetailActivity
 import com.areeb.whatsappstatussaver.ui.base.fragments.BaseFragments
 import com.areeb.whatsappstatussaver.ui.common.OnItemClick
 import com.areeb.whatsappstatussaver.ui.home.adapter.ImageStatusAdapter
@@ -63,7 +64,7 @@ class VideoFragments : BaseFragments() {
 
     private val onItemClick = object : OnItemClick {
         override fun onItemClick(statusDto: StatusDto) {
-            showToast("click")
+            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri, 2)
         }
     }
 }

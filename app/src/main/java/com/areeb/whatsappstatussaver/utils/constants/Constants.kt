@@ -20,6 +20,8 @@ interface Constants {
             companion object {
                 const val IMAGE_URI = "image_uri"
                 const val FRAGMENT_IMAGE_URI = "fragment_image_uri"
+                const val SCREEN_TYPE = "screen_type"
+                const val SCREEN = "screen"
             }
         }
     }
