@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModels @Inject constructor(private val context: Context) : ViewModel() {
 
-    suspend fun saveImage(bitmap: Bitmap, requireActivity: Activity) {
+    fun saveImage(bitmap: Bitmap, requireActivity: Activity) {
         val contentResolver: ContentResolver = requireActivity.applicationContext.contentResolver
         val contentValues = ContentValues().apply {
             put(MediaStore.MediaColumns.DISPLAY_NAME, "image.jpg")

@@ -38,7 +38,6 @@ class PhotosFragments : BaseFragments() {
         imageStatusAdapter =
             ImageStatusAdapter(emptyList(), onItemClick) // Initialize with an empty list
         binding?.photosRecyclerView?.adapter = imageStatusAdapter
-        getStatusAccess()
         observer()
     }
 

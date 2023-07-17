@@ -43,7 +43,6 @@ class VideoFragments : BaseFragments() {
     private fun init() {
         videoStatusAdapter = ImageStatusAdapter(emptyList(), onItemClick, true)
         binding.recyclerViewVideo.adapter = videoStatusAdapter
-        getStatusAccess()
         observer()
     }
 
