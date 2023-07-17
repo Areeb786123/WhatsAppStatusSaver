@@ -7,6 +7,13 @@
     android:background="@color/app_background_color"
     tools:context=".ui.DetailScreen.fragments.DetailFragment">
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupPhotos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="detailImage"
+        tools:visibility="gone" />
 
     <ImageView
         android:id="@+id/detailImage"
@@ -28,4 +35,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupVideos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="videoView" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

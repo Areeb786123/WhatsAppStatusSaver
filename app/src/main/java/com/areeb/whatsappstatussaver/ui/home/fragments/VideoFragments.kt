@@ -1,36 +1,27 @@
 package com.areeb.whatsappstatussaver.ui.home.fragments
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.areeb.whatsappstatussaver.R
+import androidx.annotation.RequiresApi
+import com.areeb.whatsappstatussaver.data.models.StatusDto
+import com.areeb.whatsappstatussaver.databinding.FragmentVideoFragmentsBinding
+import com.areeb.whatsappstatussaver.ui.DetailScreen.activity.DetailActivity
+import com.areeb.whatsappstatussaver.ui.base.fragments.BaseFragments
+import com.areeb.whatsappstatussaver.ui.common.OnItemClick
+import com.areeb.whatsappstatussaver.ui.home.adapter.ImageStatusAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [VideoFragments.newInstance] factory method to
- * create an instance of this fragment.
- */
 @AndroidEntryPoint
-class VideoFragments : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class VideoFragments : BaseFragments() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentVideoFragmentsBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var videoStatusAdapter: ImageStatusAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,26 +29,42 @@ class VideoFragments : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_video_fragments, container, false)
+        _binding = FragmentVideoFragmentsBinding.inflate(layoutInflater)
+        return _binding!!.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment VideoFragments.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            VideoFragments().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    @RequiresApi(Build.VERSION_CODES.Q)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    private fun init() {
+        videoStatusAdapter = ImageStatusAdapter(emptyList(), onItemClick, true)
+        binding.recyclerViewVideo.adapter = videoStatusAdapter
+        getStatusAccess()
+        observer()
+    }
+
+    private fun observer() {
+        baseListLiveData.observe(viewLifecycleOwner) { videoUri ->
+            setRecyclerView(videoUri.filter { it.fileUri.endsWith("mp4") || it.fileUri.endsWith("Mp4") })
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setRecyclerView(value: List<StatusDto>) {
+        Log.e("ss", value.toString())
+        binding.let {
+            videoStatusAdapter.submitList(value)
+            videoStatusAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private val onItemClick = object : OnItemClick {
+        override fun onItemClick(statusDto: StatusDto) {
+            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri, 2)
+        }
     }
 }

@@ -9,6 +9,7 @@ import com.areeb.whatsappstatussaver.ui.home.viewHolder.ImageStatusViewHolder
 class ImageStatusAdapter(
     private var imageStatusList: List<StatusDto>,
     private val onItemClick: OnItemClick,
+    private val isPhotoImage: Boolean = false,
 ) :
     RecyclerView.Adapter<ImageStatusViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageStatusViewHolder {
@@ -20,7 +21,7 @@ class ImageStatusAdapter(
     }
 
     override fun onBindViewHolder(holder: ImageStatusViewHolder, position: Int) {
-        holder.bind(imageStatusList[position], onItemClick)
+        holder.bind(imageStatusList[position], onItemClick, isPhotoImage)
     }
 
     fun submitList(newList: List<StatusDto>) {

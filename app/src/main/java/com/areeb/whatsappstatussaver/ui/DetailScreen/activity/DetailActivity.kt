@@ -9,6 +9,8 @@ import com.areeb.whatsappstatussaver.databinding.ActivityDetailBinding
 import com.areeb.whatsappstatussaver.ui.DetailScreen.fragments.DetailFragment
 import com.areeb.whatsappstatussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARING.Companion.FRAGMENT_IMAGE_URI
 import com.areeb.whatsappstatussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARING.Companion.IMAGE_URI
+import com.areeb.whatsappstatussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARING.Companion.SCREEN
+import com.areeb.whatsappstatussaver.utils.constants.Constants.TARGET_DIRECTORY.SHARING.Companion.SCREEN_TYPE
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,9 +20,13 @@ class DetailActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
     companion object {
-        fun startDetailFragment(context: Context, imageUri: String) {
+
+        // Screen type 1 -> photo fragment
+        // Screen type 2-> vide0 fragment
+        fun startDetailFragment(context: Context, imageUri: String, screenType: Int) {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(IMAGE_URI, imageUri)
+            intent.putExtra(SCREEN_TYPE, screenType)
             context.startActivity(intent)
         }
     }
@@ -36,6 +42,7 @@ class DetailActivity : AppCompatActivity() {
         Log.e("aa", intent.getStringExtra(IMAGE_URI).toString())
         val bundle = Bundle().apply {
             putString(FRAGMENT_IMAGE_URI, intent.getStringExtra(IMAGE_URI))
+            putInt(SCREEN, intent.getIntExtra(SCREEN_TYPE, 1))
         }
         val fragment = DetailFragment()
         fragment.arguments = bundle

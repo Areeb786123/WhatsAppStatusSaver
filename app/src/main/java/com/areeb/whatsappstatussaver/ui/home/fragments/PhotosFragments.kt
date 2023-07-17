@@ -48,17 +48,6 @@ class PhotosFragments : BaseFragments() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private fun getStatusAccess() {
-//        if (!SharedPrefences.isFolderSelected(requireContext())) {
-//            getFolderPermission()
-//        } else {
-//            getUri(Uri.parse(SharedPrefences.getTreeUriPath(requireContext())))
-//            showToast("permission granted")
-//        }
-        getFolderPermission()
-    }
-
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpRecyclerView(value: List<StatusDto>) {
         imageStatusAdapter.submitList(value)
@@ -67,7 +56,7 @@ class PhotosFragments : BaseFragments() {
 
     private val onItemClick = object : OnItemClick {
         override fun onItemClick(statusDto: StatusDto) {
-            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri)
+            DetailActivity.startDetailFragment(requireContext(), statusDto.fileUri, 1)
         }
     }
 }

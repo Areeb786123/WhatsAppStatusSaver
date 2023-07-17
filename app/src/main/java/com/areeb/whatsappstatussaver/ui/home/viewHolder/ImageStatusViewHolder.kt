@@ -17,11 +17,19 @@ class ImageStatusViewHolder(private val binding: ItemsSaverBinding) :
 
     private lateinit var onItemClick: OnItemClick
     private lateinit var statusDto: StatusDto
-    fun bind(statusDto: StatusDto, onItemClick: OnItemClick) {
+    fun bind(statusDto: StatusDto, onItemClick: OnItemClick, isPhotoFragment: Boolean) {
         this.onItemClick = onItemClick
         this.statusDto = statusDto
 
         Glide.with(binding.root.context).load(statusDto.fileUri).into(binding.itemStatus)
+        handlingForImageIcon(isPhotoFragment)
+    }
+
+    private fun handlingForImageIcon(value: Boolean) {
+        if (value) {
+            binding.videoIcon.visibility = View.VISIBLE
+            binding.itemStatus.alpha = 0.4f
+        }
     }
 
     companion object {
