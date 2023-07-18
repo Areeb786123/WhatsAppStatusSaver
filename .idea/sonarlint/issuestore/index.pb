@@ -11,3 +11,7 @@ Yapp/src/main/java/com/areeb/whatsappstatussaver/utils/sharedPrefernces/SharedPr
 Lapp/src/main/java/com/areeb/whatsappstatussaver/utils/constants/Constants.kt,4/9/49c1d955b9ee263766c2928e05911aa03a4ca7ec
 Š
 Zapp/src/main/java/com/areeb/whatsappstatussaver/ui/DetailScreen/activity/DetailActivity.kt,7/8/78d635185a982c4b08fe7f7c5cb2dbc2157fc9db
+„
+Tapp/src/main/java/com/areeb/whatsappstatussaver/ui/home/fragments/PhotosFragments.kt,6/e/6e501223b0a028f9aa16e41f370584420e5eb2e9
+€
+Papp/src/main/java/com/areeb/whatsappstatussaver/ui/home/activity/MainActivity.kt,1/4/142472f59707bbf1d45ccedc2e267193664045c1
